@@ -1,127 +1,160 @@
-const questions = [
-    // Easy Mode
-    { question: "What is the process of changing food into a simple substance for use by the cells?", answer: "DIGESTION" },
-    { question: "Which system is responsible for the exchange of oxygen and carbon dioxide between the air and the cells?", answer: "RESPIRATORYSYSTEM" },
-    { question: "A complex communication network in the body, responsible for receiving, processing and responding to stimuli, controlling bodily functions, and enabling thoughts, feelings, and actions.", answer: "NERVOUSSYSTEM" },
-    { question: "Pumps blood throughout the body, supplying oxygen and nutrients to tissues and organs.", answer: "HEART" },
-    { question: "Where does the exchange of gases take place?", answer: "LUNGS" },
-    { question: "A complex network of cells, tissues, and organs that defends the body against infections and diseases by recognizing and destroying harmful substances and abnormal cells.", answer: "IMMUNESYSTEM" },
-    { question: "Used by aquatic animals to facilitate gas exchange.", answer: "GILLS" },
-    { question: "Which gas is essential for animals to survive?", answer: "OXYGEN" },
-    { question: "A fluid that carries oxygen, nutrients, hormones, and waste products.", answer: "BLOOD" },
-    { question: "The majority of nutrient absorption occurs in the _____", answer: "SMALLINTESTINE" },
+document.addEventListener("DOMContentLoaded", function () {
+    const startButton = document.getElementById("start-button");
+    const welcomeContainer = document.getElementById("welcome-container");
+    const gameContainer = document.getElementById("game-container");
+    const questionText = document.getElementById("question");
+    const letterGrid = document.getElementById("letter-grid");
+    const scoreDisplay = document.getElementById("score");
+    const livesDisplay = document.getElementById("lives-container");
+    const feedback = document.getElementById("feedback");
+    const deleteButton = document.getElementById("delete-button");
+    const submitButton = document.getElementById("submit-button");
+    const answerBox = document.getElementById("answer-box");
 
-    // Medium Mode
-    { question: "The inside of the small intestine is lined with millions of hair-like projections called ___", answer: "VILLI" },
-    { question: "Moves from the blood capillaries into the alveoli to be exhaled.", answer: "CARBONDIOXIDE" },
-    { question: "The exchange of oxygen and carbon dioxide between the blood and body cells.", answer: "INTERNALRESPIRATION" },
-    { question: "A network of tubes that carry blood throughout the body.", answer: "BLOODVESSELS" },
-    { question: "Refers to the ability of the body to remain in a stable internal environment despite the fluctuations in the external world.", answer: "HOMEOSTASIS" },
-    { question: "Tiny blood vessels where the exchange of oxygen, nutrients, and waste products occurs between the blood and the tissues.", answer: "CAPILLARIES" },
-    { question: "Which organ plays a crucial role in maintaining the balance of water, salt, and other substances in the body fluids that surround cells?", answer: "KIDNEY" },
-    { question: "The kidneys filter waste products to the blood, including urea, excess water, and electrolytes. These waste products are then excreted in a form of ___________", answer: "URINE" },
-    { question: "What is called the chemical messengers produced by glands that travel through the bloodstream to regulate various bodily functions, including growth, development, metabolism, and reproduction?", answer: "HORMONES" },
-
-    // Hard Mode
-    { question: "Consequences of failing homeostasis.", answer: "DEATHANDDISEASE" },
-    { question: "An overreaction of the immune system to harmless substances.", answer: "ALLERGY" },
-    { question: "This is a more specific and long-lasting immune response that develops over time through exposure to pathogens.", answer: "ADAPTIVEIMMUNITY" },
-    { question: "What is the hormone that prepares the body for 'fight or flight' situations?", answer: "ADRENALINE" },
-    { question: "Controls involuntary functions like heart rate, digestion, and breathing.", answer: "AUTONOMICNERVOUSSYSTEM" },
-    { question: "Also known as the body's 'blood cell factory,' producing red blood cells, white blood cells, and platelets, which are essential for oxygen transport, fighting infection, and blood clotting.", answer: "BONEMARROW" },
-    { question: "What is it called when the body maintains water and salt balance?", answer: "OSMOREGULATION" }
-];
-
-let currentQuestionIndex = 0;
-let selectedLetters = "";
-let score = 0;
-
-function loadQuestion() {
-    document.getElementById("question").innerText = questions[currentQuestionIndex].question;
-    generateLetterGrid(questions[currentQuestionIndex].answer);
-}
-
-function generateLetterGrid(answer) {
-    let grid = document.getElementById("letter-grid");
-    grid.innerHTML = "";
-    let letters = answer.replace(/ /g, "").split(""); // Remove spaces when creating grid
+    const questions = [
+        { question: "It is the process by which organisms break down food into forms that their cells may absorb and use.", answer: "digestion" },
+        { question: "It is the biological structure within an organism that acts as protection against diseases.", answer: "immune system" },
+        { question: "Which organ produces the hormone glucagon and insulin?", answer: "pancreas" },
+        { question: "The process by which wastes are eliminated from the body of an animal is called ________.", answer: "excretion" },
+        { question: "These are signaling proteins produced by body cells when being attacked by pathogens.", answer: "interferons" },
+        { question: "The two upper chambers of heart are called _______.", answer: "atria" },
+        { question: "What are the blood vessels that carry blood back to the heart?", answer: "veins" },
+        { question: "These are chemical signals by ductless (endocrine) gland that circulate blood to the target cell, tissue, or organ that is distant from the original endocrine gland.", answer: "hormones" },
+        { question: "Which part of the brain regulates body temperature, hunger, and thirst?", answer: "hypothalamus" },
+        { question: "Which organ is responsible for absorbing most of the nutrients from food?", answer: "smallintestine" },
+        { question: "Which hormone regulates growth and development during childhood and adolescence?", answer: "growthhormone" },
+        { question: "Which nerve cells transmit signals from the central nervous system to muscles and glands?", answer: "motorneurons" },,
+        { question: "Tiny blood vessels where the exchange of oxygen, nutrients, and waste products occurs between the blood and the tissues.", answer: "capillaries" },
+        { question: "It is the hormone that stimulates the production in mammary glands of lactating animals.", answer: "oxytocin" },
+        { question: "The process by which wastes are eliminated from the body of an animal is called?", answer: "Excretion" },
+        { question: "What are the three nitrogenous wastes produced from excretion?", answer: "Urea, uric acid, and creatinine" },
+        { question: "The management of water and solute concentrations in the body.", answer: "Osmoregulation" },
+        { question: "The excretory structure of mammals.", answer: "Bolus" },
+        { question: "Other term for partially-digested food.", answer: "Microvilli" },
+        { question: "The inside of the small intestine is lined with millions of hair-like projections called ____________.", answer: "Bodysurface" },
+        { question: "In earthworms (annelids) and flatworms (Platyhelminthes) the respiration occurs in their ____________.", answer: "Gills" },
+        { question: "Used by aquatic animals to facilitate gas exchange.", answer: "Homeostasis" },
+        { question: "Refers to the ability of the body to remain a stable internal environment despite the fluctuations on the external world.", answer: "Urine" },
+        { question: "The kidneys filter waste products to the blood, including urea, excess water, and electrolytes. These waste products are then excreted in a form of ____________.", answer: "Allergy" }
+    ];
     
-    // Add random extra letters to increase difficulty
-    const extraLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    while (letters.length < 12) {
-        letters.push(extraLetters[Math.floor(Math.random() * extraLetters.length)]);
-    }
-    
-    // Shuffle letters randomly
-    letters = letters.sort(() => Math.random() - 0.5);
 
-    letters.forEach(letter => {
-        let div = document.createElement("div");
-        div.classList.add("letter");
-        div.innerText = letter;
-        div.onclick = () => selectLetter(div);
-        grid.appendChild(div);
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let lives = 3;
+    let selectedLetters = "";
+
+    startButton.addEventListener("click", function () {
+        welcomeContainer.style.display = "none";
+        gameContainer.style.display = "block";
+        startGame();
     });
-}
 
-function selectLetter(element) {
-    if (!element.classList.contains("selected")) {
-        element.classList.add("selected");
-        selectedLetters += element.innerText;
-        document.getElementById("selected-word").innerText = selectedLetters;
+    function startGame() {
+        score = 0;
+        lives = 3;
+        currentQuestionIndex = 0;
+        scoreDisplay.innerText = `Score: ${score}`;
+        updateLives();
+        loadQuestion();
     }
-}
 
-function submitAnswer() {
-    let correctAnswer = questions[currentQuestionIndex].answer;
-    
-    if (selectedLetters === correctAnswer) {
-        document.getElementById("feedback").innerText = "✅ Correct!";
-        score += 10;
-        document.getElementById("score").innerText = score;
-        
-        // Move to the next question only if the answer is correct
-        if (currentQuestionIndex < questions.length - 1) {
-            currentQuestionIndex++;
-            selectedLetters = "";
-            loadQuestion();
-        } else {
-            document.getElementById("question").innerText = "🎉 Game Over! Final Score: " + score;
-            document.getElementById("letter-grid").innerHTML = "";
+    function loadQuestion() {
+        if (lives <= 0) {
+            showGameOver();
+            return;
         }
-    } else {
-        document.getElementById("feedback").innerText = "❌ Wrong! Try again.";
+        if (currentQuestionIndex >= questions.length) {
+            alert("🎉 Congratulations! You completed the game.");
+            restartGame();
+            return;
+        }
+        let currentQuestion = questions[currentQuestionIndex];
+        questionText.innerText = currentQuestion.question;
+        generateLetterGrid(currentQuestion.answer);
+    }
 
-        // 🔹 RESET selected letters so the user can try again
+    function generateLetterGrid(answer) {
+        letterGrid.innerHTML = "";
         selectedLetters = "";
-        document.getElementById("selected-word").innerText = selectedLetters;
+        answerBox.value = "";
 
-        // 🔹 REMOVE the "selected" class from all letter buttons
-        let letters = document.querySelectorAll(".letter");
-        letters.forEach(letter => letter.classList.remove("selected"));
-    }
-}
+        let letters = answer.toUpperCase().split("");
+        let additionalLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-
-
-
-function startGame() {
-    document.getElementById("start-screen").style.display = "none"; 
-    document.getElementById("game-container").style.display = "block"; 
-    loadQuestion();
-}
-
-// Start the game
-loadQuestion();
-
-function deleteLetter() {
-    if (selectedLetters.length > 0) {
-        selectedLetters = selectedLetters.slice(0, -1); // Remove last letter
-        document.getElementById("selected-word").innerText = selectedLetters;
-
-        let selectedDivs = document.querySelectorAll(".letter.selected");
-        if (selectedDivs.length > 0) {
-            selectedDivs[selectedDivs.length - 1].classList.remove("selected");
+        while (letters.length < 15) {
+            let randomLetter = additionalLetters[Math.floor(Math.random() * additionalLetters.length)];
+            letters.push(randomLetter);
         }
+
+        letters = letters.sort(() => Math.random() - 0.5);
+
+        letters.forEach(letter => {
+            let div = document.createElement("div");
+            div.classList.add("letter");
+            div.innerText = letter;
+            div.onclick = () => toggleLetter(div);
+            letterGrid.appendChild(div);
+        });
     }
-}
+
+    function toggleLetter(div) {
+        if (div.classList.contains("selected")) {
+            div.classList.remove("selected");
+            selectedLetters = selectedLetters.replace(div.innerText, "");
+        } else {
+            div.classList.add("selected");
+            selectedLetters += div.innerText;
+        }
+        answerBox.value = selectedLetters;
+    }
+
+    function clearSelection() {
+        selectedLetters = "";
+        answerBox.value = "";
+        document.querySelectorAll(".letter.selected").forEach(div => {
+            div.classList.remove("selected");
+        });
+    }
+
+    function checkAnswer() {
+        if (selectedLetters.toLowerCase() === questions[currentQuestionIndex].answer.toLowerCase()) {
+            score += 10;
+            scoreDisplay.innerText = `Score: ${score}`;
+            feedback.innerText = "✅ Correct!";
+            feedback.style.color = "green";
+            currentQuestionIndex++;
+            setTimeout(() => {
+                feedback.innerText = "";
+                loadQuestion();
+            }, 1000);
+        } else {
+            lives--;
+            feedback.innerText = "❌ Wrong!";
+            feedback.style.color = "red";
+            updateLives();
+            if (lives <= 0) {
+                setTimeout(showGameOver, 1000);
+            }
+        }
+        clearSelection();
+    }
+
+    function updateLives() {
+        let hearts = "❤️".repeat(lives) + "💔".repeat(3 - lives);
+        livesDisplay.innerText = `Lives: ${hearts}`;
+    }
+
+    function showGameOver() {
+        alert(`Game Over! Your final score: ${score}`);
+        restartGame();
+    }
+
+    function restartGame() {
+        gameContainer.style.display = "none";
+        welcomeContainer.style.display = "block";
+    }
+
+    deleteButton.addEventListener("click", clearSelection);
+    submitButton.addEventListener("click", checkAnswer);
+});

@@ -3,44 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioPixel - Biology Word Game</title>
+    <title>BioPixel</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="game-container">
-        <h1>BioPixel - Biology Word Game</h1>
-        <p id="question">Click letters to form the correct word:</p>
-        <div id="letter-grid"></div>
-        <p id="selected-word"></p>
-        <button onclick="submitAnswer()">Submit</button>
-        <p id="feedback"></p>
-        <p>Score: <span id="score">0</span></p>
+    <!-- Welcome Screen -->
+    <div id="welcome-container">
+        <h1>Welcome to BioPixel</h1>
+        <button id="start-button">Start Game</button>
     </div>
-    <script src="script.js"></script>
+
+    <!-- Game Screen -->
+    <div id="game-container" style="display: none;">
+        <div id="lives-container">❤️❤️❤️</div>
+        <div id="question"></div>
+        <div id="letter-grid"></div>
+
+        <!-- Answer Box (Readonly para hindi manually input) -->
+        <input type="text" id="answer-box" readonly>
+
+        <!-- Buttons -->
+        <button id="delete-button">Delete</button>
+        <button id="submit-button">Submit</button>
+
+        <!-- Score & Feedback -->
+        <div id="score">Score: 0</div>
+        <div id="feedback"></div>
+    </div>
+
+    <script src="script.js"></script> 
 </body>
 </html>
-<body>
-    <!-- Start Screen -->
-    <div id="start-screen">
-        <h1>Welcome to BioPixel!</h1>
-        <button onclick="startGame()">Start Game</button>
-    </div>
-
-    <!-- Game Container (Initially Hidden) -->
-    <div id="game-container">
-        <h1>BioPixel - Biology Word Game</h1>
-        <p id="question">Click letters to form the correct word:</p>
-        <div id="letter-grid"></div>
-        <p id="selected-word"></p>
-        <button onclick="submitAnswer()">Submit</button>
-        <p id="feedback"></p>
-        <p>Score: <span id="score">0</span></p>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-<button onclick="deleteLetter()">Delete</button>
-
-
-
-
