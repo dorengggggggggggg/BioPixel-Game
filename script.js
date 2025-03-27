@@ -23,11 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
         { question: "Which part of the brain regulates body temperature, hunger, and thirst?", answer: "hypothalamus" },
         { question: "Which organ is responsible for absorbing most of the nutrients from food?", answer: "smallintestine" },
         { question: "Which hormone regulates growth and development during childhood and adolescence?", answer: "growthhormone" },
-        { question: "Which nerve cells transmit signals from the central nervous system to muscles and glands?", answer: "motorneurons" },,
+        { question: "Which nerve cells transmit signals from the central nervous system to muscles and glands?", answer: "motorneurons" },
         { question: "Tiny blood vessels where the exchange of oxygen, nutrients, and waste products occurs between the blood and the tissues.", answer: "capillaries" },
         { question: "It is the hormone that stimulates the production in mammary glands of lactating animals.", answer: "oxytocin" },
         { question: "The process by which wastes are eliminated from the body of an animal is called?", answer: "Excretion" },
-        { question: "What are the three nitrogenous wastes produced from excretion?", answer: "Urea, uric acid, and creatinine" },
         { question: "The management of water and solute concentrations in the body.", answer: "Osmoregulation" },
         { question: "The excretory structure of mammals.", answer: "Bolus" },
         { question: "Other term for partially-digested food.", answer: "Microvilli" },
@@ -158,3 +157,19 @@ document.addEventListener("DOMContentLoaded", function () {
     deleteButton.addEventListener("click", clearSelection);
     submitButton.addEventListener("click", checkAnswer);
 });
+
+function checkGameEnd() {
+    if (score === totalQuestions) { // Kung perfect score
+        document.getElementById("game-container").style.display = "none";
+        document.body.innerHTML += `
+            <div id="end-game-container">
+                <h1>Congratulations! You Got a Perfect Score! 🎉</h1>
+                <button onclick="restartGame()">Play Again</button>
+            </div>
+        `;
+    }
+}
+
+function restartGame() {
+    location.reload(); // Ire-reload ang page para mag-umpisa ulit
+}
