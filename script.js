@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const questions = [
         { question: "It is the process by which organisms break down food into forms that their cells may absorb and use.", answer: "digestion" },
-        { question: "It is the biological structure within an organism that acts as protection against diseases.", answer: "immune system" },
+        { question: "It is the biological structure within an organism that acts as protection against diseases.", answer: "immunesystem" },
         { question: "Which organ produces the hormone glucagon and insulin?", answer: "pancreas" },
         { question: "The process by which wastes are eliminated from the body of an animal is called ________.", answer: "excretion" },
         { question: "These are signaling proteins produced by body cells when being attacked by pathogens.", answer: "interferons" },
